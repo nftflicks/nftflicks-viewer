@@ -16,13 +16,19 @@
     "productName": "NFTFlicks",
     "copyright": "Copyright © Savage Arts Pictures",
     "directories": {
-      "output": "dist"
+      "output": "dist-build"
     },
     "files": [
       "main.js",
       "preload.js",
       "offline.html",
       "assets/**/*"
+    ],
+    "extraFiles": [
+      {
+        "from": "../shared/electron-shell-hosts.js",
+        "to": "shared/electron-shell-hosts.js"
+      }
     ],
     "win": {
       "target": [

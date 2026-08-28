@@ -2,26 +2,13 @@
 
 const { app, BrowserWindow, Menu, shell, ipcMain, net } = require("electron");
 const path = require("path");
+const shellHosts = require("../shared/electron-shell-hosts");
 
 const LOCAL_ORIGIN = "http://127.0.0.1:8095";
 const REMOTE_ORIGIN = "https://nftflicks.com";
 const SITE_HOST = "nftflicks.com";
 
-const ALLOWED_HOSTS = new Set([
-  "127.0.0.1",
-  "localhost",
-  "nftflicks.com",
-  "www.nftflicks.com",
-  "accounts.google.com",
-  "oauth2.googleapis.com",
-  "checkout.stripe.com",
-  "js.stripe.com",
-  // YouTube embed only (video bits stay on Google CDN — this shell never proxies MP4).
-  "www.youtube.com",
-  "youtube.com",
-  "www.youtube-nocookie.com",
-  "youtube-nocookie.com",
-]);
+const SHELL_UA_SUFFIX = " NFTFlicksShell/1.0";
 
 let mainWindow = null;
 let currentMode = "offline"; // local | remote | offline
@@ -31,48 +18,15 @@ function siteUrl(origin, page = "index.html") {
 }
 
 function openExternalSafe(urlString) {
-  try {
-    const u = new URL(urlString);
-    if (u.protocol !== "https:") return;
-    const host = u.hostname.toLowerCase();
-    const allowed =
-      ALLOWED_HOSTS.has(host) ||
-      host === "checkout.stripe.com" ||
-      host === "billing.stripe.com" ||
-      host === "pay.stripe.com" ||
-      host === "buy.stripe.com" ||
-      host === "invoice.stripe.com" ||
-      host.endsWith(".google.com") ||
-      host.endsWith(".googleapis.com") ||
-      host.endsWith(".gstatic.com") ||
-      host.endsWith(".youtube.com") ||
-      host.endsWith(".ytimg.com") ||
-      host.endsWith(".wax.io") ||
-      host === "wax.bloks.io" ||
-      host.endsWith(".atomicassets.io") ||
-      host.endsWith(".cloudflare.com");
-    if (!allowed) return;
-    shell.openExternal(u.toString()).catch(() => {});
-  } catch {
-    /* ignore */
-  }
+  shellHosts.openExternalSafe(urlString, shell);
 }
 
 function isAllowedNavigation(urlString) {
-  try {
-    const u = new URL(urlString);
-    if (u.protocol !== "https:" && u.protocol !== "http:") return false;
-    const host = u.hostname.toLowerCase();
-    if (ALLOWED_HOSTS.has(host)) {
-      if (host === "127.0.0.1" || host === "localhost") {
-        return u.port === "8095" || u.port === "";
-      }
-      return u.protocol === "https:";
-    }
-    return false;
-  } catch {
-    return false;
-  }
+  return shellHosts.isAllowedNavigation(urlString);
+}
+
+function applyShellUserAgent(session) {
+  shellHosts.applyShellUserAgent(session, SHELL_UA_SUFFIX);
 }
 
 function probe(url, timeoutMs = 2500) {
@@ -221,6 +175,7 @@ function createWindow() {
     mainWindow = null;
   });
 
+  applyShellUserAgent(mainWindow.webContents.session);
   loadSite();
 }
 
