@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NFT Flicks</string>
+    <string name="blocked_navigation">That link is blocked for security.</string>
+    <string name="ssl_error">Secure connection failed. Check your network.</string>
+    <string name="load_error">Could not load NFT Flicks. Check your connection and try again.</string>
+    <string name="cast_started">Casting to your TV…</string>
+    <string name="cast_failed">Could not start Chromecast. Check Wi‑Fi and try again.</string>
+    <string name="cast_not_configured">Chromecast is not configured yet.</string>
+    <string name="menu_legal">Legal</string>
+    <string name="menu_terms">Terms of Service</string>
+    <string name="menu_privacy">Privacy Policy</string>
+    <string name="menu_cookies">Cookie Policy</string>
+    <string name="menu_risks">Risk Disclosures</string>
+    <string name="menu_refunds">No Refund Policy</string>
+    <string name="menu_dmca">DMCA / Copyright</string>
+    <string name="menu_marketplace">Marketplace &amp; proceeds</string>
+    <string name="menu_producer_license">Producer License</string>
+    <string name="menu_delete_account">Delete account</string>
+    <string name="buy_on_website">Buy and sell on the NFT Flicks website in your browser.</string>
+    <string name="legal_dialog_title">Legal &amp; policies</string>
+    <string name="legal_dialog_message">Open a document. This app is for login and watching. Buy/sell on the website. Digital purchases are final. NFTs are not securities. Ages 18+.</string>
+</resources>

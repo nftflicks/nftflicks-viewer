@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Build Windows EXE
+        working-directory: consumer-desktop
+        run: |
+          npm ci
+          npm run dist
+
+      - name: Upload unsigned EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-exe
+          path: consumer-desktop/dist/NFTFlicks.exe
+
+  # Uncomment after SignPath Foundation approval — set repository secrets first.
+  # signpath:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: SignPath/signpath-action@v1
+  #       with:
+  #         api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+  #         organization-id: ${{ secrets.SIGNPATH_ORGANIZATION_ID }}
+  #         project-slug: ${{ secrets.SIGNPATH_PROJECT_SLUG }}
+  #         signing-policy-slug: ${{ secrets.SIGNPATH_SIGNING_POLICY_SLUG }}
+  #         artifact-configuration-slug: release-windows
+  #         input-artifact-path: consumer-desktop/dist/NFTFlicks.exe
+  #         output-artifact-path: NFTFlicks.exe
+
+  # release:
+  #   needs: signpath
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: softprops/action-gh-release@v2
+  #       with:
+  #         files: NFTFlicks.exe

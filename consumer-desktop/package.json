@@ -1,0 +1,48 @@
+{
+  "name": "nftflicks-desktop",
+  "version": "1.0.0",
+  "description": "NFT Flicks — watch, buy, and trade movies",
+  "main": "main.js",
+  "author": "Savage Arts Pictures",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --win portable --x64",
+    "dist": "electron-builder --win portable --x64"
+  },
+  "build": {
+    "appId": "com.nftflicks.desktop",
+    "productName": "NFTFlicks",
+    "copyright": "Copyright © Savage Arts Pictures",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "offline.html",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "NFTFlicks.exe"
+    },
+    "portable": {
+      "artifactName": "NFTFlicks.exe"
+    },
+    "asar": true
+  },
+  "devDependencies": {
+    "electron": "^43.4.1",
+    "electron-builder": "^26.0.12"
+  }
+}

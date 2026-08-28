@@ -1,0 +1,10 @@
+NFT Flicks Viewer
+Copyright 2024-2026 NFT Flicks / Savage Arts Pictures
+
+This product includes software developed by third parties:
+
+- Electron / Chromium (see consumer-desktop/dist LICENSES on build)
+- Android Jetpack, Google Cast SDK (see android-app Gradle dependencies)
+- Shaka Player and other web assets loaded from https://nftflicks.com at runtime
+
+See each component's license in the respective build output or vendor documentation.

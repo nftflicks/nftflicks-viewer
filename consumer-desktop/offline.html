@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NFT Flicks</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --fg: #f2ede4;
+      --muted: #9a958c;
+      --red: #e6192e;
+      --line: #222;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(1200px 600px at 50% -10%, #1a1012 0%, var(--bg) 55%);
+      color: var(--fg);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      padding: 24px;
+    }
+    .card {
+      width: min(480px, 100%);
+      border-top: 3px solid var(--red);
+      padding: 28px 24px 24px;
+      background: rgba(255,255,255,0.02);
+    }
+    .brand {
+      color: var(--red);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      font-size: 14px;
+      margin: 0 0 16px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.55rem;
+      font-weight: 700;
+    }
+    p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.98rem;
+    }
+    code {
+      color: var(--fg);
+      background: #151515;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    button {
+      margin-top: 10px;
+      background: var(--red);
+      color: #fff;
+      border: 0;
+      padding: 12px 18px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    button:hover { filter: brightness(1.08); }
+    .hint { font-size: 0.85rem; margin-top: 16px; border-top: 1px solid var(--line); padding-top: 14px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <p class="brand">NFT FLICKS</p>
+    <h1>Server offline</h1>
+    <p>Neither the local API nor the remote site responded.</p>
+    <p>Turn on <code>NFTFlicks</code> in <code>MyServers.exe</code>, then reconnect.</p>
+    <button type="button" id="retry">Reconnect</button>
+    <p class="hint">Local: <code>http://127.0.0.1:8095</code> · Remote: NFT Flicks website</p>
+  </div>
+  <script>
+    document.getElementById("retry").addEventListener("click", () => {
+      if (window.NftFlicksShell) window.NftFlicksShell.reconnect();
+    });
+  </script>
+</body>
+</html>

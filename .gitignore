@@ -1,0 +1,17 @@
+# NFT Flicks public viewer — build artifacts only (SignPath-signed releases)
+
+node_modules/
+.gradle/
+**/build/
+**/dist/
+**/out/
+*.apk
+*.exe
+*.aab
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+tools/secrets/
+signing.env
