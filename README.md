@@ -17,14 +17,7 @@ Windows builds are signed in CI via [SignPath Foundation](https://signpath.org/)
 
 Attribution (required on download pages):
 
-> Free code signing provided by [SignPath.io](https://signpath.io/), certificate by [SignPath Foundation](https://signpath.org/)
-
-### Code signing policy
-
-- **Authors / committers:** Savage Arts Pictures maintainers with write access to this repository
-- **Reviewers:** Pull requests require maintainer review before merge to `master`
-- **Approvers:** Release tags (`v*.*.*`) trigger CI build; SignPath signing requests require maintainer approval in SignPath.io after subscription is active
-- **Privacy:** This program loads the NFT Flicks website for auth and playback. See https://nftflicks.com/privacy.html
+> Free code signing provided by SignPath.io, certificate by SignPath Foundation
 
 ## Build locally
 
@@ -45,7 +38,7 @@ npm install
 npm run dist
 ```
 
-Output: `consumer-desktop/dist-build/NFTFlicks.exe`
+Output: `consumer-desktop/dist/NFTFlicks.exe`
 
 ## Apply for / renew SignPath
 
