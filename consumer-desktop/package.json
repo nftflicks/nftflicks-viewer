@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "NFT Flicks — watch, buy, and trade movies",
   "main": "main.js",
-  "author": "Savage Arts Pictures",
+  "author": "NFT Flicks",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
@@ -14,7 +14,7 @@
   "build": {
     "appId": "com.nftflicks.desktop",
     "productName": "NFTFlicks",
-    "copyright": "Copyright © Savage Arts Pictures",
+    "copyright": "Copyright © NFT Flicks",
     "directories": {
       "output": "dist-build"
     },

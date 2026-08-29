@@ -15,7 +15,7 @@ Watch films you own. Sign in, stream, Cast. Buy editions on the website.
 ## Full description (≤ 4000 characters)
 
 ```text
-NFT Flicks is the official Android app for the NFT Flicks streaming platform from Savage Arts Pictures.
+NFT Flicks is the official Android app for the NFT Flicks streaming platform from NFT Flicks.
 
 WHAT YOU CAN DO IN THE APP
 • Sign in with email or Google

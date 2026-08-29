@@ -7,7 +7,7 @@ Submit at [signpath.org/apply](https://signpath.org/apply) when this repo is pub
 - **Name:** NFT Flicks Viewer
 - **Description:** Open-source Android and Windows client for the NFT Flicks streaming platform. Connects to nftflicks.com for auth, entitlements, and playback. No payment processing in the client.
 - **License:** Apache-2.0 ([LICENSE](../LICENSE))
-- **Repository:** `https://github.com/SavageArtsPictures/nftflicks-viewer`
+- **Repository:** `https://github.com/NFTFlicks/nftflicks-viewer`
 - **Download page:** [nftflicks.com/help.html#downloads](https://nftflicks.com/help.html#downloads)
 - **Artifacts to sign:** `NFTFlicks.exe` (Windows portable), optionally `NFTFlicks.apk`
 
