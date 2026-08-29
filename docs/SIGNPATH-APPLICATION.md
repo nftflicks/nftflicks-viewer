@@ -1,6 +1,6 @@
 # SignPath Foundation — application copy-paste
 
-Submit at https://signpath.org/ when this repo is public on GitHub.
+Submit at [signpath.org/apply](https://signpath.org/apply) when this repo is public on GitHub.
 
 ## Project
 
@@ -8,7 +8,7 @@ Submit at https://signpath.org/ when this repo is public on GitHub.
 - **Description:** Open-source Android and Windows client for the NFT Flicks streaming platform. Connects to nftflicks.com for auth, entitlements, and playback. No payment processing in the client.
 - **License:** Apache-2.0 ([LICENSE](../LICENSE))
 - **Repository:** `https://github.com/SavageArtsPictures/nftflicks-viewer`
-- **Download page:** https://nftflicks.com/help.html#downloads
+- **Download page:** [nftflicks.com/help.html#downloads](https://nftflicks.com/help.html#downloads)
 - **Artifacts to sign:** `NFTFlicks.exe` (Windows portable), optionally `NFTFlicks.apk`
 
 ## Build policy
@@ -19,7 +19,7 @@ Submit at https://signpath.org/ when this repo is public on GitHub.
 
 ## Download page text (required after approval)
 
-Add to https://nftflicks.com/help.html#downloads:
+Add to [nftflicks.com/help.html#downloads](https://nftflicks.com/help.html#downloads):
 
 > Free code signing provided by [SignPath.io](https://signpath.io/), certificate by [SignPath Foundation](https://signpath.org/)
 
@@ -30,7 +30,7 @@ Until the first signed release ships, use:
 ## GitHub secrets (after approval)
 
 | Secret | Purpose |
-|--------|---------|
+| -------- | --------- |
 | `SIGNPATH_API_TOKEN` | SignPath API |
 | `SIGNPATH_ORGANIZATION_ID` | SignPath org slug |
 | `SIGNPATH_PROJECT_SLUG` | Project slug |

@@ -4,7 +4,7 @@ Public **Android APK** and **Windows portable EXE** for watching NFT Flicks film
 
 ## Download
 
-- Website: https://nftflicks.com/help.html#downloads
+- Website: [nftflicks.com/help.html#downloads](https://nftflicks.com/help.html#downloads)
 - GitHub Releases: (after first SignPath-signed release)
 
 ## License
@@ -38,7 +38,7 @@ npm install
 npm run dist
 ```
 
-Output: `consumer-desktop/dist/NFTFlicks.exe`
+Output: `consumer-desktop/dist-build/NFTFlicks.exe`
 
 ## Apply for / renew SignPath
 
