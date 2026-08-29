@@ -6,6 +6,9 @@ on:
       - "v*.*.*"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -28,29 +31,41 @@ jobs:
           name: unsigned-exe
           path: consumer-desktop/dist-build/NFTFlicks.exe
 
-  # Uncomment after SignPath Foundation approval — set repository secrets first.
-  # signpath:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/download-artifact@v4
-  #       with:
-  #         name: unsigned-exe
-  #         path: artifact
-  #     - uses: SignPath/signpath-action@v1
-  #       with:
-  #         api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-  #         organization-id: ${{ secrets.SIGNPATH_ORGANIZATION_ID }}
-  #         project-slug: ${{ secrets.SIGNPATH_PROJECT_SLUG }}
-  #         signing-policy-slug: ${{ secrets.SIGNPATH_SIGNING_POLICY_SLUG }}
-  #         artifact-configuration-slug: release-windows
-  #         input-artifact-path: artifact/NFTFlicks.exe
-  #         output-artifact-path: NFTFlicks.exe
+  signpath:
+    needs: build
+    if: vars.SIGNPATH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: unsigned-exe
+          path: artifact
 
-  # release:
-  #   needs: signpath
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: softprops/action-gh-release@v2
-  #       with:
-  #         files: NFTFlicks.exe
+      - uses: SignPath/signpath-action@v1
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ secrets.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ secrets.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ secrets.SIGNPATH_SIGNING_POLICY_SLUG }}
+          artifact-configuration-slug: release-windows
+          input-artifact-path: artifact/NFTFlicks.exe
+          output-artifact-path: NFTFlicks.exe
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: signed-exe
+          path: NFTFlicks.exe
+
+  release:
+    needs: signpath
+    if: vars.SIGNPATH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: signed-exe
+          path: .
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: NFTFlicks.exe
