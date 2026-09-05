@@ -1,24 +1,19 @@
-# NFTFlicks.exe
+# NFTFlicks.exe (open source)
 
-Consumer Electron shell for the public NFT Flicks site (watch, buy, marketplace).
+Public Electron shell for the NFT Flicks website (watch, marketplace). Backend, payments, and admin tools are **not** in this repository.
 
 ## Build
 
 ```powershell
-cd "C:\Users\User\Desktop\Cursor\nft flicks beta\consumer-desktop"
+cd consumer-desktop
 npm install
 npm run dist
 ```
 
-Output: `consumer-desktop\dist\NFTFlicks.exe`
+Output: `consumer-desktop/dist-build/NFTFlicks.exe` (or `dist/`, depending on electron-builder config).
 
-Public download path (site): `Website\nftflickbeta\downloads\NFTFlicks.exe`  
-Also synced into `server\data\apps\` and the AFM USB pack `Desktop\NFT Flicks\` by:
+Loads the public site at `https://nftflicks.com` (or local API when developing against a private backend you run yourself). Does **not** open staff portals.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File ".\tools\package-all-clients.ps1"
-```
+## License
 
-(from the `nft flicks beta` repo root)
-
-Loads `http://127.0.0.1:8095/index.html` when the local API is up, otherwise the remote public host. Does **not** open staff portals.
+Apache-2.0 — see the repository root `LICENSE`.

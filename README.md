@@ -11,6 +11,7 @@ Backend, payments, admin, and studio tools remain **proprietary** in a separate 
 - Public OSS (this repo): [github.com/nftflicks/nftflicks-viewer](https://github.com/nftflicks/nftflicks-viewer)
 - Product / downloads: [nftflicks.com/help.html#downloads](https://nftflicks.com/help.html#downloads)
 - Reputation / verifiable refs: [docs/REPUTATION.md](docs/REPUTATION.md)
+- OSS boundary (public vs private): [docs/OSS-BOUNDARY.md](docs/OSS-BOUNDARY.md)
 
 ## Download
 

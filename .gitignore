@@ -15,7 +15,3 @@ Thumbs.db
 .env.*
 tools/secrets/
 signing.env
-
-# Local Gradle dump (not required for OSS review)
-android-app/dependencies.txt
-

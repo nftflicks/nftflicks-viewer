@@ -2,12 +2,21 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
+
 from PIL import Image
 
-SRC = r"C:\Users\User\Desktop\Website\nftflickbeta\images\nft-flicks-cast-icon-512.png"
-RES = r"C:\Users\User\Desktop\Cursor\nft flicks beta\android-app\app\src\main\res"
-DOCS = r"C:\Users\User\Desktop\Cursor\nft flicks beta\android-app\docs"
-PLAY = r"C:\Users\User\Desktop\Cursor\nft flicks beta\android-app\app\src\main\play"
+ROOT = Path(__file__).resolve().parents[1]  # android-app/
+# Optional brand source: set NFTFLICKS_ICON_SRC, or place icon at docs/source-icon-512.png
+SRC = Path(
+    os.environ.get(
+        "NFTFLICKS_ICON_SRC",
+        str(ROOT / "docs" / "source-icon-512.png"),
+    )
+)
+RES = ROOT / "app" / "src" / "main" / "res"
+DOCS = ROOT / "docs"
+PLAY = ROOT / "app" / "src" / "main" / "play"
 
 BG = (10, 10, 10, 255)  # #0A0A0A
 
@@ -22,6 +31,11 @@ def with_bg(im: Image.Image, size: int, pad_ratio: float = 0.0) -> Image.Image:
 
 
 def main() -> None:
+    if not SRC.is_file():
+        raise SystemExit(
+            f"Missing icon source: {SRC}\n"
+            "Set NFTFLICKS_ICON_SRC to a 512 PNG, or add docs/source-icon-512.png"
+        )
     img = Image.open(SRC).convert("RGBA")
 
     legacy = {
@@ -40,25 +54,25 @@ def main() -> None:
     }
 
     for folder, size in legacy.items():
-        d = os.path.join(RES, folder)
-        os.makedirs(d, exist_ok=True)
+        d = RES / folder
+        d.mkdir(parents=True, exist_ok=True)
         out = with_bg(img, size)
-        out.save(os.path.join(d, "ic_launcher.png"), "PNG")
-        out.save(os.path.join(d, "ic_launcher_round.png"), "PNG")
+        out.save(d / "ic_launcher.png", "PNG")
+        out.save(d / "ic_launcher_round.png", "PNG")
         print(f"legacy {folder}: {size}")
 
     for folder, size in foreground.items():
-        d = os.path.join(RES, folder)
-        os.makedirs(d, exist_ok=True)
+        d = RES / folder
+        d.mkdir(parents=True, exist_ok=True)
         out = with_bg(img, size)
-        out.save(os.path.join(d, "ic_launcher_foreground.png"), "PNG")
+        out.save(d / "ic_launcher_foreground.png", "PNG")
         print(f"fg {folder}: {size}")
 
-    os.makedirs(DOCS, exist_ok=True)
-    os.makedirs(PLAY, exist_ok=True)
+    DOCS.mkdir(parents=True, exist_ok=True)
+    PLAY.mkdir(parents=True, exist_ok=True)
     play_icon = with_bg(img, 512)
-    play_icon.save(os.path.join(DOCS, "play-store-icon-512.png"), "PNG")
-    play_icon.save(os.path.join(PLAY, "icon-512.png"), "PNG")
+    play_icon.save(DOCS / "play-store-icon-512.png", "PNG")
+    play_icon.save(PLAY / "icon-512.png", "PNG")
     print("play 512 written")
     print("done")
 

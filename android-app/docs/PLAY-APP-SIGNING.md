@@ -6,10 +6,9 @@ Google Play App Signing is enrolled in **Play Console** on first upload (not in 
 
 | Artifact | Location |
 |----------|----------|
-| Upload keystore | `android-app/nftflicks-upload.jks` |
+| Upload keystore | `android-app/nftflicks-upload.jks` (local only; gitignored) |
 | Keystore config | `android-app/keystore.properties` (gitignored) |
 | Signed AAB | `android-app/app/build/outputs/bundle/release/app-release.aab` |
-| Desktop copy | `C:\Users\User\Desktop\NFTFlicks.aab` |
 
 **Back up** the `.jks` + `keystore.properties` offline. If you lose the upload key, recovery requires Play support.
 
