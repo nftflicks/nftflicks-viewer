@@ -26,7 +26,7 @@ Privacy / deletion URLs (required by Play):
 - HTTPS only (`usesCleartextTraffic=false` + network security config)
 - Host allowlist (site, API, OAuth, Stripe, YouTube, WAX)
 - Google OAuth + Stripe Checkout open in **Custom Tabs** (not the WebView)
-- OAuth return via `nftflicks://oauth` deep link
+- OAuth return via HTTPS App Links (`https://nftflicks.com/...`) — no custom scheme
 - TLS errors never ignored
 - File/content access disabled in WebView; mixed content blocked
 - Safe Browsing when supported

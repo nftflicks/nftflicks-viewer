@@ -20,8 +20,8 @@ android {
         applicationId = "com.nftflicks.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 11
-        versionName = "1.0.10"
+        versionCode = 14
+        versionName = "1.0.13"
         buildConfigField("String", "SITE_URL", "\"https://nftflicks.com/\"")
         buildConfigField("String", "API_HOST", "\"nftflicks.com\"")
         buildConfigField("String", "SITE_HOST", "\"nftflicks.com\"")

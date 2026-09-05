@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var progress: ProgressBar
     private lateinit var castLauncher: CastLauncher
+    private var castJsBridge: CastJsBridge? = null
+    private val bridgeName = "NftFlicksAndroid"
+    private val trustedBridgeHosts = setOf("nftflicks.com", "www.nftflicks.com")
+    private var currentBridgeUrl: String? = null
 
     private val allowedHosts = setOf(
         "nftflicks.com",
@@ -176,16 +180,9 @@ class MainActivity : AppCompatActivity() {
         resolveIncomingUrl(intent)?.let { webView.loadUrl(it) }
     }
 
-    /** Map nftflicks://oauth?... → https site URL with the same query (login handoff). */
+    /** HTTPS App Links only — reject non-HTTPS schemes (no custom nftflicks:// parser). */
     private fun resolveIncomingUrl(intent: Intent?): String? {
         val uri = intent?.data ?: return null
-        if (uri.scheme.equals("nftflicks", true) && uri.host.equals("oauth", true)) {
-            val site = Uri.parse(BuildConfig.SITE_URL).buildUpon()
-            uri.queryParameterNames.forEach { key ->
-                site.appendQueryParameter(key, uri.getQueryParameter(key))
-            }
-            return site.build().toString()
-        }
         val url = uri.toString()
         return url.takeIf { isAllowedUrl(it) }
     }
@@ -215,22 +212,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         @SuppressLint("JavascriptInterface")
-        webView.addJavascriptInterface(
-            CastJsBridge(
-                onCast = { token, receiverUrl ->
-                    runOnUiThread { castLauncher.start(token, receiverUrl) }
-                },
-                notifyPremiumBlocked = { reason ->
-                    runOnUiThread {
-                        Toast.makeText(
-                            this,
-                            "Premium DRM not available on this build ($reason)",
-                            Toast.LENGTH_LONG,
-                        ).show()
-                    }
-                },
-            ),
-            "NftFlicksAndroid",
+        castJsBridge = CastJsBridge(
+            hostAllowed = { isTrustedBridgeHost(currentBridgeUrl) },
+            onCast = { token, receiverUrl ->
+                runOnUiThread { castLauncher.start(token, receiverUrl) }
+            },
+            notifyPremiumBlocked = { reason ->
+                runOnUiThread {
+                    Toast.makeText(
+                        this,
+                        "Premium DRM not available on this build ($reason)",
+                        Toast.LENGTH_LONG,
+                    ).show()
+                }
+            },
         )
 
         webView.webChromeClient = object : WebChromeClient() {
@@ -284,13 +279,32 @@ class MainActivity : AppCompatActivity() {
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 progress.visibility = View.VISIBLE
+                syncJavascriptBridge(url)
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 progress.visibility = View.GONE
                 CookieManager.getInstance().flush()
+                syncJavascriptBridge(url)
             }
         }
+    }
+
+    /** M-01: expose native bridge only on trusted NFT Flicks site origins. */
+    private fun isTrustedBridgeHost(url: String?): Boolean {
+        val host = runCatching { Uri.parse(url ?: return false).host?.lowercase() }.getOrNull()
+            ?: return false
+        val site = BuildConfig.SITE_HOST.lowercase()
+        return host in trustedBridgeHosts || host == site
+    }
+
+    @SuppressLint("JavascriptInterface")
+    private fun syncJavascriptBridge(url: String?) {
+        currentBridgeUrl = url
+        webView.removeJavascriptInterface(bridgeName)
+        if (!isTrustedBridgeHost(url)) return
+        val bridge = castJsBridge ?: return
+        webView.addJavascriptInterface(bridge, bridgeName)
     }
 
     private enum class ExternalNav {

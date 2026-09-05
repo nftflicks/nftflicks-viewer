@@ -67,13 +67,20 @@ async function resolveTarget() {
   if (await probe(siteUrl(REMOTE_ORIGIN))) {
     return { mode: "remote", url: siteUrl(REMOTE_ORIGIN) };
   }
-  return { mode: "offline", url: null };
+  // Degraded: load remote origin so cached shell + resilience playback can still run.
+  return { mode: "degraded", url: siteUrl(REMOTE_ORIGIN) };
 }
 
 function setStatus(mode) {
   currentMode = mode;
   const label =
-    mode === "local" ? "Local" : mode === "remote" ? "Remote" : "Offline";
+    mode === "local"
+      ? "Local"
+      : mode === "remote"
+        ? "Remote"
+        : mode === "degraded"
+          ? "Degraded"
+          : "Offline";
   if (mainWindow && !mainWindow.isDestroyed()) {
     mainWindow.setTitle(`NFT Flicks — ${label}`);
     mainWindow.webContents.send("shell:status", { mode, label });
@@ -90,7 +97,12 @@ async function loadSite() {
     } catch (_) {
       /* ignore */
     }
-    await mainWindow.loadURL(target.url, { extraHeaders: "Cache-Control: no-cache\n" });
+    try {
+      await mainWindow.loadURL(target.url, { extraHeaders: "Cache-Control: no-cache\n" });
+    } catch (_) {
+      await mainWindow.loadFile(path.join(__dirname, "offline.html"));
+      setStatus("offline");
+    }
   } else {
     await mainWindow.loadFile(path.join(__dirname, "offline.html"));
   }

@@ -96,5 +96,5 @@ Staff APKs (`android-admin`, `android-studio` flavors, cast-register) are **side
 - [ ] Internal testing track live; opt-in link shared
 - [ ] Data safety form matches `privacy.html` + `DATA-SAFETY.md`
 - [ ] Account deletion URL works signed-in and signed-out
-- [ ] Google Sign-In return via `nftflicks://oauth`
+- [ ] Google Sign-In return via HTTPS App Links (no custom `nftflicks://` scheme)
 - [ ] Confirm buy CTAs open the **system browser**, not an in-app checkout

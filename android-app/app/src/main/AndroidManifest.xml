@@ -37,20 +37,13 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- Deep links into the NFT Flicks site (verified App Links) -->
+            <!-- Deep links into the NFT Flicks site (verified App Links) — OAuth return is HTTPS only (Retest 9 M-02) -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https" android:host="nftflicks.com" />
                 <data android:scheme="https" android:host="www.nftflicks.com" />
-            </intent-filter>
-            <!-- Custom Tabs OAuth return (Google Play Sign-In guidance) -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="nftflicks" android:host="oauth" />
             </intent-filter>
         </activity>
     </application>
